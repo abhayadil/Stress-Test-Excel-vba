@@ -1,0 +1,51 @@
+Sub strestest()
+
+Dim rrv As Long
+Dim cct As Long
+Dim vlu As Long
+Dim vlu1 As Variant
+Dim strv As Date
+Dim stpv As Date
+Dim rstv As Date
+
+rrv = 0
+cct = 0
+
+vlu1 = InputBox("Enter the test strength as a number from 10 - 10,000")
+
+Range("C6").Select
+
+If IsNumeric(vlu1) = True Then
+    vlu = CLng(vlu1)
+    Do Until rrv = vlu
+        ActiveCell.Value = Now
+            If rrv = 0 Then
+                strv = ActiveCell.Value
+            End If
+        Do Until ccv = vlu
+            ActiveCell.Value = Now
+            ActiveCell.Offset(0, 1).Select
+            ccv = ccv + 1
+        Loop
+        ActiveCell.Offset(1, -ccv).Select
+        ccv = 0
+        rrv = rrv + 1
+    Loop
+    
+    ActiveCell.Offset(-1, vlu - 1).Select
+    stpv = ActiveCell.Value
+    rstv = stpv - strv
+    
+    Range("A4").Value = "Result"
+    Range("B4").Select
+    ActiveCell.Value = rstv
+    Selection.NumberFormat = "hh:mm:ss"
+    Selection.Font.Bold = True
+    Range("C4").Value = "Time taken to perform this test at " & vlu & " strength"
+
+Else
+    MsgBox "enter a valid number"
+
+End If
+
+End Sub
